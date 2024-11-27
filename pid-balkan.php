@@ -60,7 +60,7 @@ if (file_exists($apikey_path) && is_readable($apikey_path)) {
             xhr.open('GET', 'https://api.golemio.cz/v2/public/departureboards?stopIds=%7B%220%22%3A%20%5B%22U1613Z1%22%2C%20%22U1613Z2%22%5D%7D&limit=5&minutesAfter=360', true);
 
             // Nastavení hlavičky pro API klíč
-            xhr.setRequestHeader('X-Access-Token', 'token');
+            xhr.setRequestHeader('X-Access-Token', '<?php echo htmlspecialchars($apikey, ENT_QUOTES, 'UTF-8'); ?>');
 
             // Nastavení typu přijatých dat (volitelné, pokud očekáváš JSON)
             xhr.setRequestHeader('accept', 'application/json');
