@@ -1,24 +1,3 @@
-<?php
-
-if (function_exists('curl_version')) {
-    echo '';
-} else {
-    echo 'ERROR: cURL not found';
-}
-
-// Cesta k souboru, který chcete načíst
-$apikey_path = 'apikey.txt';
-
-// Kontrola, zda soubor existuje a lze ho načíst
-if (file_exists($apikey_path) && is_readable($apikey_path)) {
-    // Načte obsah souboru
-    $apikey = file_get_contents($apikey_path);
-} else {
-    // Nastaví chybovou zprávu, pokud soubor neexistuje nebo nelze načíst
-    $apikey = "apikeyerror";
-}
-?>
-
 <!DOCTYPE html>
 <html lang='cs' data-bs-theme="dark">
 
@@ -44,14 +23,21 @@ if (file_exists($apikey_path) && is_readable($apikey_path)) {
 
     <div class="container">
 
-        <?php if ($apikey == "apikeyerror"): ?>
-            <p class="center">ERROR loading API KEY</p>
-        <?php endif; ?>
-
         <h1>Odjezdy z Šestajovice, Balkán</h1>
         <!--<h1>Odjezdy z Šestajovice, Za Stodolami</h1>-->
 
         <script>
+
+            // načtení API key
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'apikey.txt', true);
+            xhr.onreadystatechange = function () {
+                if (this.readyState !== 4) return;
+                if (this.status !== 200) return; // or whatever error handling you want
+                $apiKey = this.responseText;
+            };
+            xhr.send();
+
             var xhr = new XMLHttpRequest();
 
             // https://api.golemio.cz/pid/docs/openapi/#/%F0%9F%95%92%20Public%20Departures%20(v2)/get_v2_public_departureboards
@@ -60,7 +46,7 @@ if (file_exists($apikey_path) && is_readable($apikey_path)) {
             xhr.open('GET', 'https://api.golemio.cz/v2/public/departureboards?stopIds=%7B%220%22%3A%20%5B%22U1613Z1%22%2C%20%22U1613Z2%22%5D%7D&limit=5&minutesAfter=360', true);
 
             // Nastavení hlavičky pro API klíč
-            xhr.setRequestHeader('X-Access-Token', '<?php echo $apikey; ?>');
+            xhr.setRequestHeader('X-Access-Token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjgxMCwiaWF0IjoxNzIwMzY0NDE4LCJleHAiOjExNzIwMzY0NDE4LCJpc3MiOiJnb2xlbWlvIiwianRpIjoiMDdhMDlkMGMtNzliNy00MTZmLWFhOTQtMWU2MmFkMWQ0NzkzIn0._oWGvAfru07E29PI2je_G4gWcirD_VCrguMwX70O0ak');
 
             // Nastavení typu přijatých dat (volitelné, pokud očekáváš JSON)
             xhr.setRequestHeader('accept', 'application/json');
