@@ -5,7 +5,7 @@ body {
 @media (min-width: 1900px) {
     body {
         transform: scale(1.7);
-        transform-origin: top left;
+        transform-origin: top center;
     }
   }
 
