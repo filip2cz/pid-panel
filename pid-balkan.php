@@ -176,7 +176,7 @@
         <script>
             // Funkce pro přesměrování na jinou stránku
             document.addEventListener("click", function () {
-                window.location.href = "http://localhost/pid-balkan.php";  // Změň na URL, kam chceš přesměrovat
+                window.location.href = "./pid-balkan.php";  // Změň na URL, kam chceš přesměrovat
             });
         </script>
 
