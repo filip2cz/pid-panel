@@ -1,11 +1,10 @@
 body {
     background-color: black !important;
-    overflow: hidden; /* Skryje případné posunutí obsahu */
 }
 
 @media (min-width: 1900px) {
     body {
-        transform: scale(1.5);
+        font-size: 150%;
     }
   }
 
