@@ -5,10 +5,19 @@
     <title>Smart panel: PID</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="20;url=pid-balkan.php">
 </head>
 
 <body>
+
+    <style>
+        @media screen and (min-width: 1900px) {
+            body {
+                zoom: 2;
+            }
+        }
+    </style>
 
     <link rel="stylesheet" type="text/css" href="/main.css">
 
@@ -21,9 +30,9 @@
 
     <script src="hodiny.js"></script>
 
-    <div class="container">
+    <div class="stranka">
 
-        <h1>Odjezdy z Šestajovice, Balkán</h1>
+        <h1><span class="vetsiText">Odjezdy z Šestajovice, Balkán</span></h1>
         <!--<h1>Odjezdy z Šestajovice, Za Stodolami</h1>-->
 
         <script>
@@ -166,9 +175,9 @@
         </script>
 
         <h1 style="display: flex; justify-content: space-between;">
-            <span id="teplota">Načítám teplotu...</span>
-            <div id="hodiny"></div>
-            <a href="pid-balkan-mapa.php" id="odkaz">Mapa</a>
+            <span id="teplota" class="vetsiText">Načítám teplotu...</span>
+            <div id="hodiny" class="vetsiText"></div>
+            <a href="pid-balkan-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
         </h1>
 
         <pre id="testOutput"></pre>

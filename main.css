@@ -2,12 +2,6 @@ body {
     background-color: black !important;
 }
 
-@media (min-width: 1900px) {
-    body {
-        font-size: 150%;
-    }
-  }
-
 .output {
     font-size: xx-large;
 }
@@ -24,4 +18,13 @@ tr {
     width: 100%;
     height: calc(100vh - 70px);
     border: none;
+}
+
+.stranka {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.vetsiText {
+    font-size: 130%;
 }
