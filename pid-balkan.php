@@ -8,6 +8,7 @@ $config = json_decode($json, true);
 // Získání dat z JSON
 $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
 $pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] : 0;
+$weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -157,8 +158,11 @@ $pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] : 0;
         </table>
 
         <script>
+
+            console.log("<?php echo $weatherUrl; ?>");
+
             // URL pro API dotaz
-            const apiUrl = "https://api.open-meteo.com/v1/forecast?latitude=50.1069497&longitude=14.6770131&current_weather=true";
+            const apiUrl = "<?php echo $weatherUrl; ?>";
 
             // Funkce pro získání dat
             async function ziskejTeplotu() {
