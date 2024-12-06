@@ -1,3 +1,14 @@
+<?php
+// Načtení obsahu souboru song.json
+$json = file_get_contents('config.json');
+
+// Parsování JSON do PHP pole
+$config = json_decode($json, true);
+
+// Získání dat z JSON
+$refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
+?>
+
 <!DOCTYPE html>
 <html lang='cs' data-bs-theme="dark">
 
@@ -6,7 +17,7 @@
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="20;url=pid-balkan.php">
+    <meta http-equiv="refresh" content="<?php echo htmlspecialchars($refreshTime); ?>;url=pid-balkan.php">
 </head>
 
 <body>
