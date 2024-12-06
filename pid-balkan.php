@@ -7,6 +7,7 @@ $config = json_decode($json, true);
 
 // Získání dat z JSON
 $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
+$pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +49,8 @@ $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
 
         <script>
 
+            console.log("<?php echo $pidUrl; ?>");
+
             // načtení API key
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'apikey.txt', true);
@@ -63,19 +66,13 @@ $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
             // https://api.golemio.cz/pid/docs/openapi/#/%F0%9F%95%92%20Public%20Departures%20(v2)/get_v2_public_departureboards
 
             // Šestajovice Balkán
-            xhr.open('GET', 'https://api.golemio.cz/v2/public/departureboards?stopIds=%7B%220%22%3A%20%5B%22U1613Z1%22%2C%20%22U1613Z2%22%5D%7D&limit=5&minutesAfter=360', true);
+            xhr.open('GET', '<?php echo $pidUrl; ?>', true);
 
             // Nastavení hlavičky pro API klíč
             xhr.setRequestHeader('X-Access-Token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjgxMCwiaWF0IjoxNzIwMzY0NDE4LCJleHAiOjExNzIwMzY0NDE4LCJpc3MiOiJnb2xlbWlvIiwianRpIjoiMDdhMDlkMGMtNzliNy00MTZmLWFhOTQtMWU2MmFkMWQ0NzkzIn0._oWGvAfru07E29PI2je_G4gWcirD_VCrguMwX70O0ak');
 
             // Nastavení typu přijatých dat (volitelné, pokud očekáváš JSON)
             xhr.setRequestHeader('accept', 'application/json');
-
-            // Šestajovice Za Stodolami
-            //xhr.open('GET', 'https://api.golemio.cz/v2/public/departureboards?stopIds=%7B%220%22%3A%20%5B%22U1500Z1%22%2C%20%22U1500Z2%22%5D%7D&limit=5&minutesAfter=360', true);
-
-            // Bazar
-            //xhr.open('GET', 'https://api.golemio.cz/v2/public/departureboards?stopIds=%7B%220%22%3A%20%5B%22U18Z1P%22%2C%20%22U18Z1%22%2C%20%22U18Z2P%22%2C%20%22U18Z2%22%5D%7D&limit=5&minutesAfter=360', true);
 
             xhr.onreadystatechange = function () {
                 if (this.readyState !== 4) return;

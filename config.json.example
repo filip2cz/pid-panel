@@ -1,3 +1,4 @@
 {
-    "refreshTime": "10"
+    "refreshTime": "10",
+    "pidUrl": "https://api.golemio.cz/v2/public/departureboards?stopIds=%7B%220%22%3A%20%5B%22U1613Z1%22%2C%20%22U1613Z2%22%5D%7D&limit=5&minutesAfter=360"
 }
