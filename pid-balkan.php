@@ -9,6 +9,7 @@ $config = json_decode($json, true);
 $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
 $pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] : 0;
 $weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
+$enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -189,7 +190,9 @@ $weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
         <h1 style="display: flex; justify-content: space-between;">
             <span id="teplota" class="vetsiText">Načítám teplotu...</span>
             <div id="hodiny" class="vetsiText"></div>
-            <a href="pid-balkan-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
+            <?php if ($enableMap == "true"): ?>
+                <a href="pid-balkan-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
+            <?php endif; ?>
         </h1>
 
         <pre id="testOutput"></pre>
