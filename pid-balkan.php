@@ -53,16 +53,6 @@ $enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
 
             console.log("<?php echo $pidUrl; ?>");
 
-            // načtení API key
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'apikey.txt', true);
-            xhr.onreadystatechange = function () {
-                if (this.readyState !== 4) return;
-                if (this.status !== 200) return; // or whatever error handling you want
-                $apiKey = this.responseText;
-            };
-            xhr.send();
-
             var xhr = new XMLHttpRequest();
 
             // https://api.golemio.cz/pid/docs/openapi/#/%F0%9F%95%92%20Public%20Departures%20(v2)/get_v2_public_departureboards
