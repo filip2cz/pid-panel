@@ -24,7 +24,7 @@
 
     <div class="container">
 
-        <h1><a href="pid-balkan.php" id="odkaz">Zpět</a></h1>
+        <h1><a href="pid-tabule.php" id="odkaz">Zpět</a></h1>
 
     </div>
 

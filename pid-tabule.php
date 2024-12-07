@@ -59,7 +59,7 @@ $teplota = ziskejTeplotu($weatherUrl);
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="<?php echo htmlspecialchars($refreshTime); ?>;url=pid-balkan.php">
+    <meta http-equiv="refresh" content="<?php echo htmlspecialchars($refreshTime); ?>;url=pid-tabule.php">
 </head>
 
 <body>
@@ -191,7 +191,7 @@ $teplota = ziskejTeplotu($weatherUrl);
             <span id="teplota" class="vetsiText"><?php echo htmlspecialchars($teplota) ?> °C</span>
             <div id="hodiny" class="vetsiText"></div>
             <?php if ($enableMap == "true"): ?>
-                <a href="pid-balkan-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
+                <a href="pid-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
             <?php endif; ?>
         </h1>
 
@@ -200,7 +200,7 @@ $teplota = ziskejTeplotu($weatherUrl);
         <script>
             // Funkce pro přesměrování na jinou stránku
             document.addEventListener("click", function () {
-                window.location.href = "./pid-balkan.php";  // Změň na URL, kam chceš přesměrovat
+                window.location.href = "./pid-tabule.php";  // Změň na URL, kam chceš přesměrovat
             });
         </script>
 
