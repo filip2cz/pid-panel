@@ -12,6 +12,45 @@ $weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
 $enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
 ?>
 
+<?php
+
+// Funkce pro získání dat z API
+function ziskejTeplotu($url) {
+    try {
+        // Inicializace cURL
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FAILONERROR, true); // Chyby HTTP budou také zachyceny
+
+        // Načtení dat
+        $response = curl_exec($ch);
+
+        // Ověření chyby při načítání
+        if ($response === false) {
+            throw new Exception(curl_error($ch));
+        }
+
+        // Zavření cURL
+        curl_close($ch);
+
+        // Dekódování JSON odpovědi
+        $data = json_decode($response, true);
+
+        // Ověření struktury dat
+        if (isset($data['current_weather']['temperature'])) {
+            return $data['current_weather']['temperature'];
+        } else {
+            throw new Exception("Nesprávná struktura odpovědi API");
+        }
+    } catch (Exception $e) {
+        return "Nepodařilo se načíst teplotu: " . $e->getMessage();
+    }
+}
+
+// Získání teploty
+$teplota = ziskejTeplotu($weatherUrl);
+?>
+
 <!DOCTYPE html>
 <html lang='cs' data-bs-theme="dark">
 
@@ -148,37 +187,8 @@ $enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
             </tbody>
         </table>
 
-        <script>
-
-            console.log("<?php echo $weatherUrl; ?>");
-
-            // URL pro API dotaz
-            const apiUrl = "<?php echo $weatherUrl; ?>";
-
-            // Funkce pro získání dat
-            async function ziskejTeplotu() {
-                try {
-                    const response = await fetch(apiUrl); // Načti data z API
-                    if (!response.ok) {
-                        throw new Error(`Chyba: ${response.status}`);
-                    }
-                    const data = await response.json(); // Převeď odpověď na JSON
-                    const teplota = data.current_weather.temperature; // Získej teplotu
-
-                    // Vypiš teplotu uživateli
-                    document.getElementById("teplota").textContent = `${teplota} °C`;
-                } catch (error) {
-                    // Ošetři chyby
-                    document.getElementById("teplota").textContent = `Nepodařilo se načíst teplotu: ${error.message}`;
-                }
-            }
-
-            // Zavolej funkci pro získání dat
-            ziskejTeplotu();
-        </script>
-
         <h1 style="display: flex; justify-content: space-between;">
-            <span id="teplota" class="vetsiText">Načítám teplotu...</span>
+            <span id="teplota" class="vetsiText"><?php echo htmlspecialchars($teplota) ?> °C</span>
             <div id="hodiny" class="vetsiText"></div>
             <?php if ($enableMap == "true"): ?>
                 <a href="pid-balkan-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
