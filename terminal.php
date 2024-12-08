@@ -39,7 +39,7 @@ $mapUrl = isset($config['mapUrl']) ? $config['mapUrl'] : 0;
 
     <div class="container">
 
-        <h1><a href="pid-tabule.php" id="odkaz">Zpět</a></h1>
+        <h1><a href="index.php" id="odkaz">Zpět</a></h1>
 
     </div>
 
