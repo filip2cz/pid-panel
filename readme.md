@@ -24,4 +24,4 @@ https://api.golemio.cz/pid/docs/openapi/#/%F0%9F%95%92%20Public%20Departures%20(
 ## Web settings
 https://github.com/yudai/gotty
 
-./gotty --permit-write -c admin:admin nano /var/www/html/config.json
+./gotty --permit-write nano /var/www/html/config.json
