@@ -26,4 +26,4 @@ https://github.com/yudai/gotty
 
 <!-- https://github.com/tsl0922/ttyd -->
 
-./gotty --permit-write nano /var/www/html/config.json
+gotty --permit-write nano /var/www/html/config.json
