@@ -2,7 +2,7 @@
 <html lang='cs' data-bs-theme="dark">
 
 <head>
-    <title>Smart panel: PID</title>
+    <title>Smart panel: PID Mapa</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <meta charset='utf-8'>
     <meta http-equiv="refresh" content="300;url=pid-balkan.php">
