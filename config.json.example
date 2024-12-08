@@ -2,5 +2,6 @@
     "refreshTime": "10",
     "pidUrl": "https://api.golemio.cz/v2/public/departureboards?stopIds=%7B%220%22%3A%20%5B%22U1613Z1%22%2C%20%22U1613Z2%22%5D%7D&limit=5&minutesAfter=360",
     "weatherUrl": "https://api.open-meteo.com/v1/forecast?latitude=50.1069497&longitude=14.6770131&current_weather=true",
-    "enableMap": "true"
+    "enableMap": "true",
+    "mapUrl": "https://mapa.pid.cz/?filter=&zoom=14&lon=14.6805&lat=50.1053"
 }
