@@ -34,7 +34,7 @@ $mapUrl = isset($config['mapUrl']) ? $config['mapUrl'] : 0;
             $local_ip = shell_exec("hostname -I");
 
             // Vypsání IP adresy na stránku
-            echo $local_ip;
+            echo htmlspecialchars($local_ip);
             ?>:8080" id="mapa" target="_self"></iframe>
 
     <div class="container">
