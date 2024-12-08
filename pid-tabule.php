@@ -9,6 +9,7 @@ $config = json_decode($json, true);
 $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
 $pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] : 0;
 $pidApiKey = isset($config['pidApiKey']) ? $config['pidApiKey'] : 0;
+$zastavka = isset($config['zastavka']) ? $config['zastavka'] : 0;
 $weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
 $enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
 ?>
@@ -87,7 +88,7 @@ $teplota = ziskejTeplotu($weatherUrl);
 
     <div class="stranka">
 
-        <h1><span class="vetsiText">Odjezdy z Šestajovice, Balkán</span></h1>
+        <h1><span class="vetsiText">Odjezdy z <?php echo htmlspecialchars($zastavka); ?></span></h1>
 
         <?php
 
