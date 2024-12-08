@@ -29,7 +29,13 @@ $mapUrl = isset($config['mapUrl']) ? $config['mapUrl'] : 0;
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
 
-    <iframe src="http://localhost:8080" id="mapa" target="_self"></iframe>
+    <iframe src="http://<?php
+            // Získání lokální IP adresy serveru
+            $local_ip = shell_exec("hostname -I");
+
+            // Vypsání IP adresy na stránku
+            echo $local_ip;
+            ?>:8080" id="mapa" target="_self"></iframe>
 
     <div class="container">
 
