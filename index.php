@@ -32,8 +32,10 @@
             echo $local_ip;
             ?>
 
-            <a href="terminal.php">Settings</a>
+        </p>
 
+        <p>
+            <a href="terminal.php">Settings</a>
         </p>
 
     </div>
