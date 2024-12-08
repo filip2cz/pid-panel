@@ -1,0 +1,11 @@
+[Unit]
+Description=Gotty pid-panel config
+After=network.target
+
+[Service]
+ExecStart=/bin/gotty --permit-write nano /var/www/html/config.json
+Restart=always
+User=admin
+
+[Install]
+WantedBy=multi-user.target
