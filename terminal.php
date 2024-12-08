@@ -13,7 +13,7 @@ $mapUrl = isset($config['mapUrl']) ? $config['mapUrl'] : 0;
 <html lang='cs' data-bs-theme="dark">
 
 <head>
-    <title>Smart panel: PID Mapa</title>
+    <title>Smart panel: Nastavení</title>
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <meta charset='utf-8'>
 </head>
