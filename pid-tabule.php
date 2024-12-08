@@ -92,6 +92,8 @@ $teplota = ziskejTeplotu($weatherUrl);
 
         <?php
 
+        date_default_timezone_set('Europe/Prague');
+
         // Inicializace cURL
         $ch = curl_init();
 
