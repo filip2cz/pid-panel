@@ -20,9 +20,9 @@
 
     <div class="container">
 
-        <h1>Server info</h1>
+        <h1>Device info</h1>
 
-        <p>Lokální IP adresa:
+        <p>Local IP adress:
 
             <?php
             // Získání lokální IP adresy serveru
