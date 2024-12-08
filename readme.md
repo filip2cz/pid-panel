@@ -16,3 +16,7 @@ přidat do /etc/php/[verzephp]/apache2/php.ini text:
 po každé takové změně restartovat apache server:
 
 `sudo systemctl restart apache2`
+
+## Odkaz na dokumentaci api, co je používáno
+
+https://api.golemio.cz/pid/docs/openapi/#/%F0%9F%95%92%20Public%20Departures%20(v2)/get_v2_public_departureboards
