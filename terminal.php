@@ -1,10 +1,21 @@
+<?php
+// Načtení obsahu souboru song.json
+$json = file_get_contents('config.json');
+
+// Parsování JSON do PHP pole
+$config = json_decode($json, true);
+
+// Získání dat z JSON
+$mapUrl = isset($config['mapUrl']) ? $config['mapUrl'] : 0;
+?>
+
 <!DOCTYPE html>
 <html lang='cs' data-bs-theme="dark">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="10;url=pid-tabule.php">
-    <title>Přesměrování...</title>
+    <title>Smart panel: PID Mapa</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <meta charset='utf-8'>
 </head>
 
 <body>
@@ -18,23 +29,11 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
 
+    <iframe src="http://localhost:8080" id="mapa" target="_self"></iframe>
+
     <div class="container">
 
-        <h1>Device info</h1>
-
-        <p>Local IP adress:
-
-            <?php
-            // Získání lokální IP adresy serveru
-            $local_ip = shell_exec("hostname -I");
-
-            // Vypsání IP adresy na stránku
-            echo $local_ip;
-            ?>
-
-            <a href="terminal.php">Settings</a>
-
-        </p>
+        <h1><a href="pid-tabule.php" id="odkaz">Zpět</a></h1>
 
     </div>
 
