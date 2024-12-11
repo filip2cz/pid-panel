@@ -6,7 +6,7 @@ $json = file_get_contents('config.json');
 $config = json_decode($json, true);
 
 // Získání dat z JSON
-$refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 0;
+$refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 10;
 $pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] : 0;
 $pidApiKey = isset($config['pidApiKey']) ? $config['pidApiKey'] : 0;
 $zastavka = isset($config['zastavka']) ? $config['zastavka'] : 0;
