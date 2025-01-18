@@ -157,7 +157,18 @@ $teplota = ziskejTeplotu($weatherUrl);
 
         <h1 style="display: flex; justify-content: space-between;">
             <span id="teplota" class="vetsiText"><?php echo htmlspecialchars($teplota) ?> °C</span>
-            <div id="hodiny" class="vetsiText"></div>
+            <div id="hodiny" class="vetsiText">
+                <?php
+                // Nastav časovou zónu (volitelné, pokud není nastavena v konfiguraci serveru)
+                date_default_timezone_set('Europe/Prague');
+
+                // Získání aktuálního času ve formátu H:i:s (hodiny:minuty:vteřiny)
+                $cas = date('H:i:s');
+
+                // Zobrazení času na stránce
+                echo "$cas";
+                ?>
+            </div>
             <?php if ($enableMap == "true"): ?>
                 <a href="pid-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
             <?php endif; ?>
