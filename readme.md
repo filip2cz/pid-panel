@@ -7,11 +7,14 @@
 
 nainstalovat php-curl:
 
-`sudo apt install php-curl`
+`sudo apt install php-curl php-xml`
 
 přidat do /etc/php/[verzephp]/apache2/php.ini text:
 
-`extension=curl`
+```
+extension=curl
+extension=xml
+```
 
 po každé takové změně restartovat apache server:
 
