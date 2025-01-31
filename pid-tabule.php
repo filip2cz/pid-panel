@@ -9,10 +9,10 @@ $config = json_decode($json, true);
 if (isset($_COOKIE['window_height']) && isset($_COOKIE['window_width'])) {
     $windowHeight = $_COOKIE['window_height'];
     if ($_COOKIE['window_width'] < 826) {
-        $pidLimit = floor(($windowHeight-220)/65)-2;
+        $pidLimit = floor(($windowHeight-210)/65)-2;
     }
     else {
-        $pidLimit = floor(($windowHeight-220)/65);
+        $pidLimit = floor(($windowHeight-210)/65);
     }
 } else {
     $pidLimit = 5;
