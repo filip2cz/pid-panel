@@ -5,9 +5,22 @@ $json = file_get_contents('config.json');
 // Parsování JSON do PHP pole
 $config = json_decode($json, true);
 
+// Načtení velikosti okna
+if (isset($_COOKIE['window_height']) && isset($_COOKIE['window_width'])) {
+    $windowHeight = $_COOKIE['window_height'];
+    if ($_COOKIE['window_width'] < 826) {
+        $pidLimit = floor(($windowHeight-220)/65)-2;
+    }
+    else {
+        $pidLimit = floor(($windowHeight-220)/65);
+    }
+} else {
+    $pidLimit = 5;
+}
+
 // Získání dat z JSON
 $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 10;
-$pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] : 0;
+$pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] . "&limit=$pidLimit" : 0;
 $pidApiKey = isset($config['pidApiKey']) ? $config['pidApiKey'] : 0;
 $zastavka = isset($config['zastavka']) ? $config['zastavka'] : 0;
 $weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
@@ -84,10 +97,9 @@ function ziskejTeplotu($url)
             $temperature = $xpath->query("//div[contains(@class, 'svalue')]");
             $teplota = $temperature->length > 0 ? trim($temperature[0]->nodeValue) : 'Neznámá';
 
-            if  ($stavKomunikace == "on-line") {
+            if ($stavKomunikace == "on-line") {
                 return $teplota;
-            }
-            else {
+            } else {
                 return "Failed to get temperature: station is offline";
             }
         } catch (Exception $e) {
@@ -121,6 +133,17 @@ $teplota = ziskejTeplotu($weatherUrl);
             }
         }
     </style>
+
+    <script>
+        function setWindowSizeCookie() {
+            document.cookie = "window_height=" + window.innerHeight + "; path=/";
+            document.cookie = "window_width=" + window.innerWidth + "; path=/";
+        }
+
+        // Zavoláme při načtení a změně velikosti okna
+        window.onload = setWindowSizeCookie;
+        window.onresize = setWindowSizeCookie;
+    </script>
 
     <link rel="stylesheet" type="text/css" href="/main.css">
 
