@@ -24,6 +24,7 @@ $pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] . "&limit=$pidLimit" : 0;
 $pidApiKey = isset($config['pidApiKey']) ? $config['pidApiKey'] : 0;
 $zastavka = isset($config['zastavka']) ? $config['zastavka'] : 0;
 $weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
+$weatherUrl2 = isset($config['weatherUrl2']) ? $config['weatherUrl2'] : 0;
 $enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
 ?>
 
@@ -100,7 +101,7 @@ function ziskejTeplotu($url)
             if ($stavKomunikace == "on-line") {
                 return $teplota;
             } else {
-                return "Failed to get temperature: station is offline";
+                return ziskejTeplotu($GLOBALS['weatherUrl2']);
             }
         } catch (Exception $e) {
             return "Nepodařilo se načíst teplotu: " . $e->getMessage();
