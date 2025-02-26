@@ -29,3 +29,15 @@ tr {
 .vetsiText {
     font-size: 130%;
 }
+
+footer {
+    background-color: black !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }

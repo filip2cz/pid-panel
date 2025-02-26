@@ -9,10 +9,9 @@ $config = json_decode($json, true);
 if (isset($_COOKIE['window_height']) && isset($_COOKIE['window_width'])) {
     $windowHeight = $_COOKIE['window_height'];
     if ($_COOKIE['window_width'] < 826) {
-        $pidLimit = floor(($windowHeight-210)/65)-2;
-    }
-    else {
-        $pidLimit = floor(($windowHeight-210)/65);
+        $pidLimit = floor(($windowHeight - 210) / 65);
+    } else {
+        $pidLimit = floor(($windowHeight - 210) / 65);
     }
 } else {
     $pidLimit = 5;
@@ -226,24 +225,26 @@ $teplota = ziskejTeplotu($weatherUrl);
         }
         ?>
 
-        <h1 style="display: flex; justify-content: space-between;">
-            <span id="teplota" class="vetsiText"><?php echo htmlspecialchars($teplota) ?> °C</span>
-            <div id="hodiny" class="vetsiText">
-                <?php
-                // Nastav časovou zónu (volitelné, pokud není nastavena v konfiguraci serveru)
-                date_default_timezone_set('Europe/Prague');
+        <footer>
+            <h1 style="display: flex; justify-content: space-between;">
+                <span id="teplota" class="vetsiText"><?php echo htmlspecialchars($teplota) ?> °C</span>
+                <div id="hodiny" class="vetsiText">
+                    <?php
+                    // Nastav časovou zónu (volitelné, pokud není nastavena v konfiguraci serveru)
+                    date_default_timezone_set('Europe/Prague');
 
-                // Získání aktuálního času ve formátu H:i:s (hodiny:minuty:vteřiny)
-                $cas = date('H:i:s');
+                    // Získání aktuálního času ve formátu H:i:s (hodiny:minuty:vteřiny)
+                    $cas = date('H:i:s');
 
-                // Zobrazení času na stránce
-                echo "$cas";
-                ?>
-            </div>
-            <?php if ($enableMap == "true"): ?>
-                <a href="pid-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
-            <?php endif; ?>
-        </h1>
+                    // Zobrazení času na stránce
+                    echo "$cas";
+                    ?>
+                </div>
+                <?php if ($enableMap == "true"): ?>
+                    <a href="pid-mapa.php" id="odkaz" class="vetsiText">Mapa</a>
+                <?php endif; ?>
+            </h1>
+        </footer>
 
         <pre id="testOutput"></pre>
 
