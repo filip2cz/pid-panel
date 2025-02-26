@@ -121,7 +121,6 @@ $teplota = ziskejTeplotu($weatherUrl);
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="<?php echo htmlspecialchars($refreshTime); ?>;url=pid-tabule.php">
 </head>
 
 <body>
@@ -143,6 +142,21 @@ $teplota = ziskejTeplotu($weatherUrl);
         // Zavoláme při načtení a změně velikosti okna
         window.onload = setWindowSizeCookie;
         window.onresize = setWindowSizeCookie;
+    </script>
+
+    <script>
+        function refreshPage() {
+            fetch(window.location.href) // Stáhne aktuální stránku
+                .then(response => response.text()) // Převede ji na text
+                .then(html => {
+                    let newDoc = new DOMParser().parseFromString(html, "text/html"); // Vytvoří nový DOM
+                    document.body.innerHTML = newDoc.body.innerHTML; // Přepíše obsah stránky
+                })
+                .catch(err => console.error("Chyba při načítání stránky:", err));
+        }
+
+        // Automatická aktualizace každých 30 sekund
+        setInterval(refreshPage, 10000);
     </script>
 
     <link rel="stylesheet" type="text/css" href="/main.css">
