@@ -34,81 +34,73 @@
     <div class="stranka">
 
         <?php
+        $maxLength = $_COOKIE['maxLetters'];
+        ?>
+
+        <h1>Probíhá kalibrace displeje</h1>
+
+        <?php
+        session_start();
 
         function shortenText($text, $maxLength)
         {
             // Pokud je text kratší než maximální délka, vrátí se nezměněný
             if (mb_strlen($text) <= $maxLength) {
                 return $text;
-            }
-
-            // Zkrátí text a přidá tři tečky na konec
-            return mb_substr($text, 0, $maxLength) . '...';
+            } // Zkrátí text a přidá tři tečky na konec return
+            mb_substr($text, 0, $maxLength) . '...';
         }
-
         ?>
 
         <?php
-        $maxLength = $_COOKIE['maxLetters'];
-        $text2 = shortenText("Toto je kalibrační text.t e s t e s t e s t e s t", $maxLength);
-        $text = shortenText("Toto je kalibrační text.MMMMMMMMMMMMMMMMMMMMMMMMMM", $maxLength);
-        $text3 = shortenText("A BCDEFGHIJKLMNOPQRSTUVWXYZMMMMMMMMMMMMMMMMMMMMMMM", $maxLength);
+        date_default_timezone_set('Europe/Prague');
+
+        $response = $_SESSION['response'];
+
+        // Zpracování dat
+        $data = json_decode($response, true);
+
+        if (isset($_COOKIE['maxLetters'])) {
+            $maxLength = $_COOKIE['maxLetters'];
+        } else {
+            $maxLength = 100000000;
+        }
+
+        // Generování tabulky
+        if (!empty($data)) {
+            echo '<table class="output table table-striped" id="busSchedule">';
+            echo '<thead>';
+            echo '<tr>';
+            echo '<th>Číslo</th>';
+            echo '<th>Směr</th>';
+            echo '<th>Čas</th>';
+            echo '<th>Zpoždění</th>';
+            echo '</tr>';
+            echo '</thead>';
+            echo '<tbody>';
+
+            foreach ($data[0] as $entry) {
+                $bus = $entry['route']['short_name'];
+                $time = date('H:i', strtotime($entry['departure']['timestamp_scheduled']));
+                $delaySeconds = $entry['departure']['delay_seconds'];
+                $delayMinutes = floor($delaySeconds / 60);
+                //$headsign = $entry['trip']['headsign'];
+                $headsign = shortenText($entry['trip']['headsign'], $maxLength);
+
+                echo '<tr>';
+                echo "<td>$bus</td>";
+                echo "<td>$headsign</td>";
+                echo "<td>$time</td>";
+                echo "<td>$delayMinutes</td>";
+                echo '</tr>';
+            }
+
+            echo '</tbody>';
+            echo '</table>';
+        } else {
+            echo "Žádná data nebyla nalezena.";
+        }
         ?>
-
-        <h1>Probíhá kalibrace displeje</h1>
-
-        <table class="output table table-striped" id="busSchedule">
-            <thead>
-                <tr>
-                    <th>Číslo</th>
-                    <th>Směr</th>
-                    <th>Čas</th>
-                    <th>Zpoždění</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>000</td>
-                    <td>kalibrace</td>
-                    <td>00:00</td>
-                    <td>000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>
-                        <?php
-                        echo $text;
-                        ?>
-                    </td>
-                    <td>00:00</td>
-                    <td>000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>
-                        <?php
-                        echo $text2;
-                        ?>
-                    </td>
-                    <td>00:00</td>
-                    <td>000</td>
-                </tr>
-                <tr>
-                    <td>000</td>
-                    <td>
-                        <?php
-                        echo $text3;
-                        ?>
-                    </td>
-                    <td>00:00</td>
-                    <td>000</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <?php echo $text2; ?> <br>
-        <?php echo $text; ?> <br>
-        <?php echo $text3; ?> <br>
 
         <script>
             // Tento Javascript se stará o to, aby bylo zjištěno číslo, od kdy se zalamuje název konečné stanice na stráce, aby tomu později mohlo PHP předcházet
@@ -170,14 +162,15 @@
                     if (minHeight == 0) {
                         minHeight = rowHeight;  // Uložíme minimální výšku
                     }
-                    else if (minHeight < rowHeight) {
-                        changeNeeded = 1;
+                    else if (minHeight > rowHeight) {
+                        minHeight = rowHeight;
                     }
                 });
 
+                console.log("Minimální výška řádků je: ", minHeight, "px");
                 console.log("Maximální výška řádků je: ", maxHeight, "px");
 
-                if (changeNeeded == 1) {
+                if ((minHeight != maxHeight)) {
                     console.log("Některé řádky jsou větší, je třeba změna.");
                     incrementMaxLettersCookie();
                 }
