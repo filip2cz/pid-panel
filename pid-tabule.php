@@ -239,7 +239,7 @@ $teplota = ziskejTeplotu($weatherUrl);
         }
         ?>
 
-        <footer>
+        <footer class="stranka">
             <h1 style="display: flex; justify-content: space-between;">
                 <span id="teplota" class="vetsiText"><?php echo htmlspecialchars($teplota) ?> °C</span>
                 <div id="hodiny" class="vetsiText">
