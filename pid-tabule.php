@@ -125,16 +125,6 @@ $teplota = ziskejTeplotu($weatherUrl);
         <meta http-equiv="refresh" content="<?php echo htmlspecialchars($refreshTime); ?>;url=pid-tabule.php">
     </noscript>
 
-    <script>
-        // Pokud je JS načten, odstraníme meta refresh
-        document.addEventListener("DOMContentLoaded", function () {
-            let meta = document.querySelector('meta[http-equiv="refresh"]');
-            if (meta) {
-                meta.remove();
-            }
-        });
-    </script>
-
     <style>
         @media screen and (min-width: 1900px) {
             body {
