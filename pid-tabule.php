@@ -291,7 +291,7 @@ $teplota = ziskejTeplotu($weatherUrl);
             });
         </script>
 
-        <script>
+<script>
             // Tento Javascript se stará o to, aby bylo zjištěno číslo, od kdy se zalamuje název konečné stanice na stráce, aby tomu později mohlo PHP předcházet
 
             // Funkce pro zmenšení hodnoty cookie maxLetters o 1
@@ -358,14 +358,12 @@ $teplota = ziskejTeplotu($weatherUrl);
                     }
                 });
 
+                console.log("Minimální výška řádků je: ", minHeight, "px");
                 console.log("Maximální výška řádků je: ", maxHeight, "px");
 
-                if (changeNeeded == 1) {
+                if ((minHeight != maxHeight)) {
                     console.log("Některé řádky jsou větší, je třeba změna.");
                     incrementMaxLettersCookie();
-                }
-                else {
-                    window.location.href = "./pid-tabule.php";
                 }
             }
 
