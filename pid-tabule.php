@@ -8,11 +8,7 @@ $config = json_decode($json, true);
 // Načtení velikosti okna
 if (isset($_COOKIE['window_height']) && isset($_COOKIE['window_width'])) {
     $windowHeight = $_COOKIE['window_height'];
-    if ($_COOKIE['window_width'] < 826) {
-        $pidLimit = floor(($windowHeight - 210) / 65);
-    } else {
-        $pidLimit = floor(($windowHeight - 210) / 65);
-    }
+    $pidLimit = floor(($windowHeight - 214) / 65);
 } else {
     $pidLimit = 5;
 }
@@ -125,6 +121,20 @@ $teplota = ziskejTeplotu($weatherUrl);
 
 <body>
 
+    <noscript>
+        <meta http-equiv="refresh" content="<?php echo htmlspecialchars($refreshTime); ?>;url=pid-tabule.php">
+    </noscript>
+
+    <script>
+        // Pokud je JS načten, odstraníme meta refresh
+        document.addEventListener("DOMContentLoaded", function () {
+            let meta = document.querySelector('meta[http-equiv="refresh"]');
+            if (meta) {
+                meta.remove();
+            }
+        });
+    </script>
+
     <style>
         @media screen and (min-width: 1900px) {
             body {
@@ -155,8 +165,8 @@ $teplota = ziskejTeplotu($weatherUrl);
                 .catch(err => console.error("Chyba při načítání stránky:", err));
         }
 
-        // Automatická aktualizace každých 30 sekund
-        setInterval(refreshPage, 10000);
+        // Automatická aktualizace každých X sekund
+        setInterval(refreshPage, <?php echo htmlspecialchars($refreshTime * 1000); ?>);
     </script>
 
     <link rel="stylesheet" type="text/css" href="/main.css">
