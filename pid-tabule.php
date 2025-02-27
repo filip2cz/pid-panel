@@ -219,10 +219,9 @@ $teplota = ziskejTeplotu($weatherUrl);
         // Zpracování dat
         $data = json_decode($response, true);
 
-        if (isset($_COOKIE['window_width'])) {
-            $maxLength = ($_COOKIE['window_width']-90-92-92-156)/15;
-        }
-        else {
+        if (isset($_COOKIE['maxLetters'])) {
+            $maxLength = $_COOKIE['maxLetters'];
+        } else {
             $maxLength = 100000000;
         }
 
@@ -290,6 +289,96 @@ $teplota = ziskejTeplotu($weatherUrl);
             document.addEventListener("click", function () {
                 window.location.href = "./pid-tabule.php";  // Změň na URL, kam chceš přesměrovat
             });
+        </script>
+
+        <script>
+            // Tento Javascript se stará o to, aby bylo zjištěno číslo, od kdy se zalamuje název konečné stanice na stráce, aby tomu později mohlo PHP předcházet
+
+            // Funkce pro zmenšení hodnoty cookie maxLetters o 1
+            function incrementMaxLettersCookie() {
+                console.log("Zvětšení cookie 'maxLetters'...");
+
+                // Získání hodnoty cookie maxLetters (pokud existuje)
+                let maxLetters = parseInt(getCookie('maxLetters') || '50');
+                console.log("Aktuální hodnota cookie 'maxLetters':", maxLetters);
+
+                // Zmenšení hodnoty o 1
+                maxLetters--;
+                console.log("Nová hodnota cookie 'maxLetters':", maxLetters);
+
+                // Uložení nové hodnoty do cookie bez expirace (session cookie)
+                setCookie('maxLetters', maxLetters);
+                console.log("Cookie 'maxLetters' byla uložena.");
+
+                // Po úpravě cookie refreshujeme stránku (za 5 vteřin, ať neděláme DDOS)
+                setTimeout(() => {
+                    console.log("Obnovuji stránku...");
+                    location.reload();
+                }, 5000);
+            }
+
+            // Funkce pro získání hodnoty cookie podle názvu
+            function getCookie(name) {
+                let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+                if (match) {
+                    return match[2];
+                }
+                return null;
+            }
+
+            // Funkce pro nastavení hodnoty cookie (session cookie)
+            function setCookie(name, value) {
+                // Nastavení cookie bez expirace, což znamená, že cookie je session cookie
+                document.cookie = name + "=" + value + "; path=/";
+                console.log(`Cookie '${name}' nastavena na hodnotu: ${value}`);
+            }
+
+            // Funkce pro kontrolu, zda se některý řádek v tabulce rozšířil
+            function checkRowHeightInTable() {
+                console.log("Začínám kontrolu výšky řádků v tabulce...");
+
+                const rows = document.querySelectorAll('#busSchedule tbody tr');  // Získáme všechny řádky tabulky
+                let maxHeight = 0;
+                let minHeight = 0;
+
+                let changeNeeded = 0;
+
+                // Nejprve zjistíme maximální výšku řádku
+                rows.forEach(row => {
+                    const rowHeight = row.offsetHeight;  // Získáme výšku řádku
+                    console.log(`Výška řádku: ${rowHeight}px`);
+                    if (rowHeight > maxHeight) {
+                        maxHeight = rowHeight;  // Uložíme maximální výšku
+                    }
+                    if (minHeight == 0) {
+                        minHeight = rowHeight;  // Uložíme minimální výšku
+                    }
+                    else if (minHeight < rowHeight) {
+                        changeNeeded = 1;
+                    }
+                });
+
+                console.log("Maximální výška řádků je: ", maxHeight, "px");
+
+                if (changeNeeded == 1) {
+                    console.log("Některé řádky jsou větší, je třeba změna.");
+                    incrementMaxLettersCookie();
+                }
+
+                // Poté zkontrolujeme, zda některý řádek má výšku výrazně vyšší než ostatní
+                rows.forEach(row => {
+                    const rowHeight = row.offsetHeight;
+                    if (rowHeight > maxHeight * 1.5) {  // Pokud je výška řádku větší než 1,5x maximální výška
+                        console.log("Řádek s výškou", rowHeight, "px má výšku větší než 1,5x maximální výška.");
+                        // Pokud ano, zvětšíme cookie maxLetters
+                        incrementMaxLettersCookie();
+                    }
+                });
+            }
+
+            // Zavoláme funkci pro kontrolu výšky řádků v tabulce
+            checkRowHeightInTable();
+
         </script>
 
     </div>
