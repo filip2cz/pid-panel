@@ -52,7 +52,7 @@
         $maxLength = $_COOKIE['maxLetters'];
         $text2 = shortenText("Toto je kalibrační text.t e s t e s t e s t e s t", $maxLength);
         $text = shortenText("Toto je kalibrační text.MMMMMMMMMMMMMMMMMMMMMMMMMM", $maxLength);
-        $text3 = shortenText("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z", $maxLength);
+        $text3 = shortenText("A BCDEFGHIJKLMNOPQRSTUVWXYZMMMMMMMMMMMMMMMMMMMMMMM", $maxLength);
         ?>
 
         <h1>Probíhá kalibrace displeje</h1>
