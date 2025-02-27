@@ -7,7 +7,7 @@
 
 nainstalovat php-curl:
 
-`sudo apt install php-curl php-xml`
+`sudo apt install php-curl php-xml php-mbstring`
 
 přidat do /etc/php/[verzephp]/apache2/php.ini text:
 

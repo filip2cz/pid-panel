@@ -176,6 +176,21 @@ $teplota = ziskejTeplotu($weatherUrl);
 
         <?php
 
+        function shortenText($text, $maxLength)
+        {
+            // Pokud je text kratší než maximální délka, vrátí se nezměněný
+            if (mb_strlen($text) <= $maxLength) {
+                return $text;
+            }
+
+            // Zkrátí text a přidá tři tečky na konec
+            return mb_substr($text, 0, $maxLength) . '...';
+        }
+
+        ?>
+
+        <?php
+
         date_default_timezone_set('Europe/Prague');
 
         // Inicializace cURL
@@ -204,6 +219,13 @@ $teplota = ziskejTeplotu($weatherUrl);
         // Zpracování dat
         $data = json_decode($response, true);
 
+        if (isset($_COOKIE['window_width'])) {
+            $maxLength = ($_COOKIE['window_width']-90-92-92-156)/15;
+        }
+        else {
+            $maxLength = 100000000;
+        }
+
         // Generování tabulky
         if (!empty($data)) {
             echo '<table class="output table table-striped" id="busSchedule">';
@@ -222,7 +244,8 @@ $teplota = ziskejTeplotu($weatherUrl);
                 $time = date('H:i', strtotime($entry['departure']['timestamp_scheduled']));
                 $delaySeconds = $entry['departure']['delay_seconds'];
                 $delayMinutes = floor($delaySeconds / 60);
-                $headsign = $entry['trip']['headsign'];
+                //$headsign = $entry['trip']['headsign'];
+                $headsign = shortenText($entry['trip']['headsign'], $maxLength);
 
                 echo '<tr>';
                 echo "<td>$bus</td>";
