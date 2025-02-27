@@ -353,8 +353,8 @@ $teplota = ziskejTeplotu($weatherUrl);
                     if (minHeight == 0) {
                         minHeight = rowHeight;  // Uložíme minimální výšku
                     }
-                    else if (minHeight < rowHeight) {
-                        changeNeeded = 1;
+                    else if (minHeight > rowHeight) {
+                        minHeight = rowHeight;
                     }
                 });
 
@@ -364,16 +364,9 @@ $teplota = ziskejTeplotu($weatherUrl);
                     console.log("Některé řádky jsou větší, je třeba změna.");
                     incrementMaxLettersCookie();
                 }
-
-                // Poté zkontrolujeme, zda některý řádek má výšku výrazně vyšší než ostatní
-                rows.forEach(row => {
-                    const rowHeight = row.offsetHeight;
-                    if (rowHeight > maxHeight * 1.5) {  // Pokud je výška řádku větší než 1,5x maximální výška
-                        console.log("Řádek s výškou", rowHeight, "px má výšku větší než 1,5x maximální výška.");
-                        // Pokud ano, zvětšíme cookie maxLetters
-                        incrementMaxLettersCookie();
-                    }
-                });
+                else {
+                    window.location.href = "./pid-tabule.php";
+                }
             }
 
             // Zavoláme funkci pro kontrolu výšky řádků v tabulce
