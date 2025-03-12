@@ -98,8 +98,9 @@ function ziskejTeplotu($url)
             } else {
                 return ziskejTeplotu($GLOBALS['weatherUrl2']);
             }
-        } catch (Exception $e) {
-            return "Nepodařilo se načíst teplotu: " . $e->getMessage();
+        }
+        catch (Exception $e) {
+            return ziskejTeplotu($GLOBALS['weatherUrl2']);
         }
     }
 
