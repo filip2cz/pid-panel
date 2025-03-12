@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="10;url=kalibrace-data.php">
+    <meta http-equiv="refresh" content="10;url=pid-tabule.php">
     <title>Přesměrování...</title>
 </head>
 

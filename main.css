@@ -40,4 +40,16 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-  }
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+td:nth-child(2) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
