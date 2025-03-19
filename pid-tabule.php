@@ -226,8 +226,8 @@ $teplota = ziskejTeplotu($weatherUrl);
             echo '<colgroup>';
             echo '<col style="width: 100px;">';
             echo '<col style="width: auto;">';
-            echo '<col style="width: 110px;">';
-            echo '<col style="width: 170px;">';
+            echo '<col style="width: 120px;">';
+            echo '<col style="width: 180px;">';
             echo '</colgroup>';
 
             foreach ($data[0] as $entry) {
