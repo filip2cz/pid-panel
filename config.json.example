@@ -5,5 +5,6 @@
     "zastavka": "Šestajovice, Balkán",
     "weatherUrl": "https://api.open-meteo.com/v1/forecast?latitude=50.1069497&longitude=14.6770131&current_weather=true",
     "enableMap": "true",
-    "mapUrl": "https://mapa.pid.cz/?filter=&zoom=14&lon=14.6805&lat=50.1053"
+    "mapUrl": "https://mapa.pid.cz/?filter=&zoom=14&lon=14.6805&lat=50.1053",
+    "missingPerson": "false"
 }
