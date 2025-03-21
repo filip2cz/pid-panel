@@ -331,7 +331,7 @@ $teplota = ziskejTeplotu($weatherUrl);
                 $GLOBALS['missingPersonImgData'] = $imageData;
 
                 echo '<div class="d-flex justify-content-between gap-2">';
-                echo "<div class=\"p-2 text-center\"><h1>Bylo vyhlášeno pátrání po pohřešované osobě, pomozte dle svých možností k jejímu nalezení.</h1></div>";
+                echo "<div class=\"p-2 text-center\"><h1>Bylo vyhlášeno pátrání po pohřešované osobě, pomozte dle svých možností k jejímu nalezení.<br>Pokud osobu na fotografii uvidíte, zavolejte 158.</h1></div>";
                 echo "<div class=\"p-2\"><img src='data:image/jpeg;base64," . base64_encode($GLOBALS['missingPersonImgData']) . "'></div>";
                 echo '</div>';
             }
