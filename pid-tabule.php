@@ -7,6 +7,9 @@ $config = json_decode($json, true);
 $missingPerson = isset($config['missingPerson']) ? $config['missingPerson'] : "false";
 
 $windowHeight = $_COOKIE['window_height'];
+
+$missingPersonImgData;
+$missingPersonActive = "false";
 ?>
 
 <?php
@@ -59,6 +62,7 @@ if ($missingPerson == "true") {
                     $imageHeight = $imageInfo[1];
                     $GLOBALS['windowHeight'] = $windowHeight - $imageHeight;
                     $GLOBALS['missingPersonImgData'] = $imageData;
+                    $GLOBALS['missingPersonActive'] = "true";
                 }
             }
         }
@@ -90,7 +94,6 @@ $weatherUrl2 = isset($config['weatherUrl2']) ? $config['weatherUrl2'] : 0;
 $enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
 
 // Pomocné proměnné
-$missingPersonImgData;
 ?>
 
 <?php
@@ -322,8 +325,8 @@ $teplota = ziskejTeplotu($weatherUrl);
         ?>
 
         <?php
-        if ($missingPerson == "true") {
-            if ($imageData !== false) {
+        if ($GLOBALS['missingPersonActive'] == "true") {
+            if ($GLOBALS['missingPersonImgData'] !== false) {
                 // Uložení výšky obrázku
                 $imageInfo = getimagesizefromstring($imageData);
                 $imageHeight = $imageInfo[1];
