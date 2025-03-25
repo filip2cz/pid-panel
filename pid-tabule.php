@@ -89,11 +89,13 @@ $refreshTime = isset($config['refreshTime']) ? $config['refreshTime'] : 10;
 $pidUrl = isset($config['pidUrl']) ? $config['pidUrl'] . "&limit=$pidLimit" : 0;
 $pidApiKey = isset($config['pidApiKey']) ? $config['pidApiKey'] : 0;
 $zastavka = isset($config['zastavka']) ? $config['zastavka'] : 0;
-$weatherUrl = isset($config['weatherUrl']) ? $config['weatherUrl'] : 0;
-$weatherUrl2 = isset($config['weatherUrl2']) ? $config['weatherUrl2'] : 0;
 $enableMap = isset($config['enableMap']) ? $config['enableMap'] : 0;
 
+$weatherSources = isset($config['weatherUrl']) ? $config['weatherUrl'] : [];
+$weatherSourcesCount = count($weatherSources);
+
 // Pomocné proměnné
+$weatherIndex = 0;
 ?>
 
 <?php
@@ -129,7 +131,13 @@ function ziskejTeplotu($url)
                 throw new Exception("Nesprávná struktura odpovědi API");
             }
         } catch (Exception $e) {
-            return "Nepodařilo se načíst teplotu: " . $e->getMessage();
+            $GLOBALS['weatherIndex'] += 1;
+            if ($GLOBALS['weatherIndex'] <= $GLOBALS['weatherSourcesCount']){
+                return ziskejTeplotu($GLOBALS['weatherSources'][$GLOBALS['weatherIndex']]);
+            }
+            else {
+                return "Nepodařilo se načíst teplotu: " . $e->getMessage();
+            }
         }
     } else if (preg_match("/meteo-pocasi.cz/", $url)) {
         try {
@@ -169,17 +177,29 @@ function ziskejTeplotu($url)
             if ($stavKomunikace == "on-line") {
                 return $teplota;
             } else {
-                return ziskejTeplotu($GLOBALS['weatherUrl2']);
+                $GLOBALS['weatherIndex'] += 1;
+                if ($GLOBALS['weatherIndex'] <= $GLOBALS['weatherSourcesCount']){
+                    return ziskejTeplotu($GLOBALS['weatherSources'][$GLOBALS['weatherIndex']]);
+                }
+                else {
+                    return "ERROR: all weather are not working";
+                }
             }
         } catch (Exception $e) {
-            return ziskejTeplotu($GLOBALS['weatherUrl2']);
+            $GLOBALS['weatherIndex'] += 1;
+            if ($GLOBALS['weatherIndex'] <= $GLOBALS['weatherSourcesCount']){
+                return ziskejTeplotu($GLOBALS['weatherSources'][$GLOBALS['weatherIndex']]);
+            }
+            else {
+                return "ERROR: all weather are not working";
+            }
         }
     }
 
 }
 
 // Získání teploty
-$teplota = ziskejTeplotu($weatherUrl);
+$teplota = ziskejTeplotu(isset($weatherSources[$weatherIndex]) ? $weatherSources[$weatherIndex] : null);
 ?>
 
 <!DOCTYPE html>
